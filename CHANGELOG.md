@@ -1,8 +1,8 @@
 # Changelog
 
 ## [1.5.0] - 2024-12-14
-### Ajouté
-- **Nouvelles Importations** :
+### Added
+- **New Imports** :
   - `sys`
   - `argparse`
   - `urllib.request`
@@ -10,36 +10,36 @@
   - `mutagen`
   - `concurrent.futures`
 
-- **Nouvelles Variables Globales** :
-  - `YT_DLP_COMMAND` : Commande de base pour `yt-dlp`.
-  - `SUPPORTED_SITES_URL` : URL du fichier `supportedsites.md`.
-  - `URL_PATTERNS` : Expressions régulières pour vérifier les URLs.
-  - `AUDIO_EXTENSIONS` : Extensions de fichiers audio supportées.
-  - `MAX_BITRATE` et `MAX_SAMPLE_RATE` : Seuils de filtrage pour le bitrate et la fréquence d'échantillonnage.
+- **New Global Variables** :
+  - `YT_DLP_COMMAND` : Base command for `yt-dlp`.
+  - `SUPPORTED_SITES_URL` : URL of the `supportedsites.md` file.
+  - `URL_PATTERNS` : Regular expressions to check URLs.
+  - `AUDIO_EXTENSIONS` : Supported audio file extensions.
+  - `MAX_BITRATE` and `MAX_SAMPLE_RATE` : Filtering thresholds for bitrate and sample rate.
 
-- **Nouvelles Fonctions** :
-  - `check_and_install_yt_dlp()` : Vérifie et installe `yt-dlp` si nécessaire.
-  - `is_supported_url(url)` : Vérifie si une URL est supportée.
-  - `create_download_directory(directory)` : Crée le répertoire de téléchargement.
-  - `download_supportedsites_md()` : Télécharge le fichier `supportedsites.md`.
-  - `extract_supported_sites()` : Extrait les sites supportés.
-  - `check_site_in_url(supported_sites, url)` : Vérifie si un site supporté est dans l'URL.
-  - `download_audio_thread(url, supported_sites)` : Télécharge un fichier audio en utilisant `yt-dlp`.
-  - `scan_directory(directory)` : Scanne un répertoire pour trouver les fichiers audio.
-  - `filter_audio_files(audio_files, max_bitrate, max_sample_rate)` : Filtre les fichiers audio.
-  - `write_filtered_files_to_file(filtered_files, file_path)` : Écrit les fichiers audio filtrés dans un fichier.
+- **New Functions** :
+  - `check_and_install_yt_dlp()` : Checks and installs `yt-dlp` if necessary.
+  - `is_supported_url(url)` : Checks if a URL is supported.
+  - `create_download_directory(directory)` : Creates the download directory.
+  - `download_supportedsites_md()` : Downloads the `supportedsites.md` file.
+  - `extract_supported_sites()` : Extracts supported sites.
+  - `check_site_in_url(supported_sites, url)` : Checks if a supported site is in the URL.
+  - `download_audio_thread(url, supported_sites)` : Downloads an audio file using `yt-dlp`.
+  - `scan_directory(directory)` : Scans a directory to find audio files.
+  - `filter_audio_files(audio_files, max_bitrate, max_sample_rate)` : Filters audio files.
+  - `write_filtered_files_to_file(filtered_files, file_path)` : Writes filtered audio files to a file.
 
-### Modifié
-- **Fonctions Existantes** :
-  - `update_yt_dlp()` : Ajout de l'appel à `check_and_install_yt_dlp()`.
-  - `download_audio(url)` : Utilisation de `YT_DLP_COMMAND`.
-  - `url_request()` : Renommée en `get_url_from_user()` avec des fonctionnalités supplémentaires.
-  - `download_mp3(line)` : Ajout de la gestion des scans de répertoires.
-  - `batch_process(file_path)` : Ajout de la gestion des scans de répertoires et utilisation de `ThreadPoolExecutor`.
-  - `main()` : Ajout de la gestion des arguments de ligne de commande, téléchargement et traitement des sites supportés, et gestion des scans de répertoires.
+### Modified
+- **Existing Functions** :
+  - `update_yt_dlp()` : Added call to `check_and_install_yt_dlp()`.
+  - `download_audio(url)` : Uses `YT_DLP_COMMAND`.
+  - `url_request()` : Renamed to `get_url_from_user()` with additional features.
+  - `download_mp3(line)` : Added handling for directory scans.
+  - `batch_process(file_path)` : Added handling for directory scans and use of `ThreadPoolExecutor`.
+  - `main()` : Added handling for command-line arguments, downloading and processing supported sites, and handling directory scans.
 
-### Autres Changements
-- Ajout de la gestion des arguments de ligne de commande avec `argparse`.
-- Ajout de la vérification et de l'installation de `yt-dlp` si nécessaire.
-- Ajout de la gestion des scans de répertoires pour trouver et filtrer les fichiers audio.
-- Ajout de la gestion des sites supportés via le fichier `supportedsites.md`.
+### Other Changes
+- Added handling for command-line arguments with `argparse`.
+- Added verification and installation of `yt-dlp` if necessary.
+- Added handling for directory scans to find and filter audio files.
+- Added handling for supported sites via the `supportedsites.md` file.
