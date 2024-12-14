@@ -13,15 +13,15 @@ Yt-dlpy is a Python script designed to simplify the process of downloading high-
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/audio-downloader.git
+   git clone https://github.com/F-Enix-Origin/yt-dlpy.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd audio-downloader
+   cd yt-dlpy
    ```
 3. Run the script:
    ```sh
-   python audio_downloader.py
+   python yt-dlpy.py
    ```
 4. Follow the on-screen instructions to download your audio files.
 
@@ -62,8 +62,4 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 ## Contact
 
-For any questions or support, please contact [your email or contact information].
-
----
-
-This README provides a comprehensive overview of the Audio Downloader script, including its features, installation instructions, usage guidelines, licensing information, and contact details.
+For any questions or support, please contact [in progress].
