@@ -197,7 +197,7 @@ def download_supportedsites_md():
 
 def extract_supported_sites():
     """
-    Extracts lines in the form " - **TapTapApp**" from the supportedsites.md file.
+    Extracts lines in the form " - **site_name**" from the supportedsites.md file.
     """
     supported_sites = set()
     try:
