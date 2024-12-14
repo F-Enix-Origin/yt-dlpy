@@ -12,4 +12,4 @@ Pour télécharger un grand volume de chichier mp3 issus de youtube ou d'autres 
 
 ## Licence
 
-Ce projet est sous licence GPL.
+Ce projet est sous licence GPL-3.0.
