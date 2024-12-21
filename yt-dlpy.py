@@ -1,18 +1,35 @@
 # Small script to simplify the use of yt-dlp
 # uses yt-dlp: ‘https://github.com/yt-dlp/yt-dlp’
 # creator: F-Enix
-#V1.5
+# V1.5
 
+import argparse
 import os
 import re
 import subprocess
-import time
 import sys
-import argparse
-from urllib.request import urlopen
-from urllib.error import URLError, HTTPError
-from mutagen import File
+import time
 from concurrent.futures import ThreadPoolExecutor
+from urllib.error import URLError, HTTPError
+from urllib.request import urlopen
+
+
+def check_and_install_mutagen():
+    """
+    Checks if mutagen is installed and installs it if not.
+    """
+    try:
+        import mutagen
+        print("mutagen is already installed.")
+    except ImportError:
+        print("mutagen is not installed. Installing now...")
+        subprocess.run([sys.executable, '-m', 'pip', 'install', 'mutagen'], check=True)
+        print("mutagen has been installed successfully.")
+
+
+check_and_install_mutagen()
+
+from mutagen import File
 
 # Configurable download path
 DOWNLOAD_PATH = 'music_downloaded'
@@ -35,6 +52,7 @@ AUDIO_EXTENSIONS = ['.mp3', '.wav', '.flac', '.aac', '.ogg']
 MAX_BITRATE = 320000
 MAX_SAMPLE_RATE = 48000
 
+
 def start():
     """
     Displays a startup message with simple visual effects.
@@ -55,6 +73,7 @@ def start():
     print(" \\___  /      /_______  /\\____|__  /|__|/__/\\_ \\     ")
     print("     \\/               \\/         \\/           \\/      ")
 
+
 def print_banner():
     banner = """
 _____.___.                  __        ___.                ________                              .__
@@ -65,6 +84,7 @@ _____.___.                  __        ___.                ________              
  \\/                                       \\/      \\/              \\/                        \\/                    \\/      \\/      \\/
 """
     print(banner)
+
 
 def check_and_install_yt_dlp():
     """
@@ -82,6 +102,7 @@ def check_and_install_yt_dlp():
         subprocess.run([sys.executable, '-m', 'pip', 'install', '--upgrade', 'yt-dlp'], check=True)
         print("yt-dlp has been reinstalled successfully.")
 
+
 def update_yt_dlp():
     """
     Updates yt-dlp to the latest version available and checks the version.
@@ -94,6 +115,7 @@ def update_yt_dlp():
         print(f"Error updating yt-dlp: {e}")
     except FileNotFoundError:
         print("yt-dlp is not installed. Please install it before continuing.")
+
 
 def download_audio(url):
     """
@@ -108,11 +130,13 @@ def download_audio(url):
     except FileNotFoundError:
         print("yt-dlp is not installed. Please install it before continuing.")
 
+
 def is_supported_url(url):
     """
     Checks if the URL matches one of the supported platforms.
     """
     return any(pattern.match(url) for platform, pattern in URL_PATTERNS.items())
+
 
 def get_url_from_user():
     """
@@ -133,6 +157,7 @@ def get_url_from_user():
     else:
         print("Warning: the URL may be defective or the platform is not supported")
         return url_local
+
 
 def download_mp3(line, is_scan=False):
     """
@@ -156,6 +181,7 @@ def download_mp3(line, is_scan=False):
     except FileNotFoundError:
         print("yt-dlp is not installed. Please install it before continuing.")
 
+
 def batch_process(file_path, is_scan=False):
     """
     Processes a file containing URLs to download MP3 files in batch.
@@ -174,6 +200,7 @@ def batch_process(file_path, is_scan=False):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
 def create_download_directory(directory):
     """
     Creates the download directory if it does not exist.
@@ -181,6 +208,7 @@ def create_download_directory(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
         print(f"The folder '{directory}' has been created.")
+
 
 def download_supportedsites_md():
     """
@@ -194,6 +222,7 @@ def download_supportedsites_md():
             print("supportedsites.md file downloaded successfully.")
     except (URLError, HTTPError) as e:
         print(f"Error downloading the supportedsites.md file: {e}")
+
 
 def extract_supported_sites():
     """
@@ -214,6 +243,7 @@ def extract_supported_sites():
         print(f"An error occurred: {e}")
         return supported_sites
 
+
 def check_site_in_url(supported_sites, url):
     """
     Checks if any of the supported sites are in the link.
@@ -222,6 +252,7 @@ def check_site_in_url(supported_sites, url):
         if site in url.lower():
             return site
     return None
+
 
 def download_audio_thread(url, supported_sites):
     """
@@ -239,6 +270,7 @@ def download_audio_thread(url, supported_sites):
         print(f"Error downloading the video: {e}")
     except FileNotFoundError:
         print("yt-dlp is not installed. Please install it before continuing.")
+
 
 def scan_directory(directory):
     """
@@ -258,6 +290,7 @@ def scan_directory(directory):
                 audio_files.append(os.path.join(root, file))
 
     return audio_files
+
 
 def filter_audio_files(audio_files, max_bitrate=MAX_BITRATE, max_sample_rate=MAX_SAMPLE_RATE):
     """
@@ -290,6 +323,7 @@ def filter_audio_files(audio_files, max_bitrate=MAX_BITRATE, max_sample_rate=MAX
 
     return filtered_files
 
+
 def write_filtered_files_to_file(filtered_files, file_path):
     """
     Writes the filtered audio files to a text file.
@@ -301,6 +335,7 @@ def write_filtered_files_to_file(filtered_files, file_path):
     with open(file_path, 'w') as file:
         for audio_file, bitrate, sample_rate in filtered_files:
             file.write(f"{audio_file}\n")
+
 
 def main():
     """
@@ -321,7 +356,8 @@ def main():
     try:
         os.chdir(args.download_path)
     except FileNotFoundError:
-        print(f"The download directory '{args.download_path}' does not exist. Please create it or change the path in the script.")
+        print(
+            f"The download directory '{args.download_path}' does not exist. Please create it or change the path in the script.")
         return
 
     download_supportedsites_md()
@@ -363,6 +399,7 @@ def main():
                 return
             else:
                 print("Invalid input. Please enter 'Y' for yes or 'N' for no.")
+
 
 if __name__ == "__main__":
     main()
